@@ -5,17 +5,14 @@ import { Button } from "@mui/material";
 import { detectConcordiumProvider } from "@concordium/browser-wallet-api-helpers";
 import type { WalletApi } from "@concordium/browser-wallet-api-helpers";
 import { useState } from "react";
+import { useAppDispatch, useAppSelector } from "../hooks";
+import { walletActions } from "../store/wallet-store";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
-  const [state, setState] = useState<{
-    provider?: WalletApi;
-    account?: string;
-  }>({
-    provider: undefined,
-    account: undefined,
-  });
+  const dispatch = useAppDispatch();
+  const walletState = useAppSelector((state) => state.wallet);
 
   const onConnectClick: React.MouseEventHandler<HTMLButtonElement> = async (
     event
@@ -23,9 +20,14 @@ export default function Home() {
     try {
       const provider = await detectConcordiumProvider();
       const accountAddr = await provider.connect();
-      setState({ provider, account: accountAddr });
 
-      detectConcordiumProvider().then((provider) => {});
+      console.log(accountAddr);
+
+      dispatch(walletActions.setAccount(accountAddr));
+
+      console.log(walletState.account);
+
+      // walletActions.setWalletState({ provider, account: accountAddr })
     } catch (err) {
       console.error(`Error connecting to wallet: ${err}`);
     }
@@ -41,7 +43,7 @@ export default function Home() {
 
         <button onClick={onConnectClick}>Connect</button>
 
-        <p>Account Address: {state.account}</p>
+        <p>Account Address: {walletState.account}</p>
       </div>
     </>
   );
