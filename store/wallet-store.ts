@@ -3,12 +3,12 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { stat } from "fs";
 
 export interface WalletState {
-  provider?: WalletApi;
+  // provider?: WalletApi;
   account?: string;
 }
 
 const initialState: WalletState = {
-  provider: undefined,
+  // provider: undefined,
   account: undefined,
 };
 
@@ -16,11 +16,21 @@ const walletSlice = createSlice({
   name: "wallet",
   initialState: initialState,
   reducers: {
-    setState: (state: WalletState, action: PayloadAction<WalletState>) => {
+    setWalletState: (
+      state: WalletState,
+      action: PayloadAction<WalletState>
+    ) => {
       state = action.payload;
     },
 
-    clearState: (state: WalletState) => {
+    setAccount: (
+      state: WalletState,
+      action: PayloadAction<string | undefined>
+    ) => {
+      state.account = action.payload;
+    },
+
+    clearWalletState: (state: WalletState) => {
       state = initialState;
     },
   },
@@ -29,4 +39,4 @@ const walletSlice = createSlice({
 const walletActions = walletSlice.actions;
 
 export default walletSlice;
-export { walletActions as userActions };
+export { walletActions };
