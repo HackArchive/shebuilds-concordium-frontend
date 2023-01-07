@@ -21,6 +21,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import RoundedButton from "../button/rounded-button";
+import { useAppSelector } from "../../../hooks";
 
 interface NavBarHomeProps {
   window?: () => Window;
@@ -69,7 +70,7 @@ const drawerWidth = 240;
 const navLinks = [
   {
     label: "Home",
-    link: "/home",
+    link: "/",
   },
 ];
 
@@ -77,6 +78,8 @@ const NavBarHome: React.FC<NavBarHomeProps> = (props) => {
   const { window } = props;
   const router = useRouter();
   const [mobileOpen, setMobileOpen] = useState(false);
+
+  const walletState = useAppSelector((state) => state.wallet);
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -104,6 +107,8 @@ const NavBarHome: React.FC<NavBarHomeProps> = (props) => {
     </Box>
   );
 
+  const connectToWallet = () => {};
+
   const container =
     window !== undefined ? () => window().document.body : undefined;
 
@@ -115,7 +120,6 @@ const NavBarHome: React.FC<NavBarHomeProps> = (props) => {
             paddingTop: "1rem",
             paddingBottom: "1rem",
             boxShadow: "none",
-            backgroundColor: "white",
           }}
           position="sticky"
         >
@@ -137,13 +141,14 @@ const NavBarHome: React.FC<NavBarHomeProps> = (props) => {
                   flexGrow: 1,
                 }}
               >
-                <Image
+                {/* <Image
                   src="/images/logo.svg"
                   width={60}
                   height={60}
                   alt="Logo"
                   className={classes.navLogo}
-                />
+                /> */}
+                <h3>TEAM CONCODERS</h3>
               </Link>
 
               <Box sx={{ display: { xs: "none", sm: "block" } }}>
@@ -155,21 +160,19 @@ const NavBarHome: React.FC<NavBarHomeProps> = (props) => {
                   );
                 })}
 
-                {/* {session.status === "unauthenticated" && (
+                {walletState.account !== undefined ? (
                   <RoundedButton
-                    onClick={() => gotoPage("/auth/signin")}
-                    text="Login"
+                    onClick={() => {}}
+                    text={walletState.account.substring(0, 10) + "..."}
+                    className={classes.authButton}
+                  />
+                ) : (
+                  <RoundedButton
+                    onClick={() => {}}
+                    text="Connect"
                     className={classes.authButton}
                   />
                 )}
-
-                {session.status === "authenticated" && (
-                  <RoundedButton
-                    onClick={handleLogout}
-                    text="Logout"
-                    className={classes.authButton}
-                  />
-                )} */}
               </Box>
             </Toolbar>
           </Container>
