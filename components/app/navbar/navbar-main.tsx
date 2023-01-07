@@ -127,8 +127,14 @@ const NavBarHome: React.FC<NavBarHomeProps> = (props) => {
           sx={{
             paddingTop: "1rem",
             paddingBottom: "1rem",
-            boxShadow: "none",
-            backgroundColor: "var(--black)",
+            // boxShadow: "none",
+            // backgroundColor: "transparent",
+
+            background: "rgba(167, 206, 172, 0)",
+            boxShadow: "0 4px 30px rgba(0, 0, 0, 0.1)",
+            backdropFilter: "blur(2.5px)",
+            WebkitBackdropFilter: "blur(2.5px)",
+            borderBottom: "1px solid rgba(167, 206, 172, 0.29)",
           }}
           position="sticky"
         >
