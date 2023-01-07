@@ -3,11 +3,12 @@ import type { AppProps } from "next/app";
 import { Provider } from "react-redux";
 import store from "../store";
 import Head from "next/head";
-import { createTheme, ThemeProvider } from "@mui/system";
+import { createTheme, ThemeProvider } from "@mui/material";
+import { CssBaseline } from "@mui/material";
 
 const theme = createTheme({
   typography: {
-    fontFamily: `"Montserrat", "Poppins", "Roboto", "Helvetica", "Arial", sans-serif`,
+    fontFamily: `"Poppins", "Roboto", "Helvetica", "Arial", sans-serif`,
   },
 });
 
@@ -21,7 +22,11 @@ export default function App({ Component, pageProps }: AppProps) {
           <meta name="viewport" content="width=device-width, initial-scale=1" />
           <link rel="icon" href="/favicon.ico" />
         </Head>
+
+        <CssBaseline />
+
         <Component {...pageProps} />
+
         {/* <ToastContainer position="bottom-center" theme="light" /> */}
       </ThemeProvider>
     </Provider>

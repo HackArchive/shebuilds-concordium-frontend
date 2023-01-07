@@ -7,8 +7,7 @@ import type { WalletApi } from "@concordium/browser-wallet-api-helpers";
 import { useState } from "react";
 import { useAppDispatch, useAppSelector } from "../hooks";
 import { walletActions } from "../store/wallet-store";
-
-const inter = Inter({ subsets: ["latin"] });
+import NavBarHome from "../components/app/navbar/navbar-main";
 
 export default function Home() {
   const dispatch = useAppDispatch();
@@ -38,6 +37,9 @@ export default function Home() {
       <Head>
         <title>Team Concoders</title>
       </Head>
+
+      <NavBarHome />
+
       <div>
         <h1>Team Concoders</h1>
 
