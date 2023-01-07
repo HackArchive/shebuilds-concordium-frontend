@@ -5,7 +5,7 @@ import classes from "./home.module.scss";
 interface CardsGroup {}
 
 const CardsGroup: React.FC<CardsGroup> = ({}) => {
-  const items = Array(5).fill({
+  const items = Array(25).fill({
     name: "Dark Elixer",
     price: 100,
     img_url: "https://wallpapercave.com/wp/wp2424020.jpg",
