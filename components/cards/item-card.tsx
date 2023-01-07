@@ -30,13 +30,13 @@ const ItemCard: React.FC<ItemCardProps> = ({
 
       <Grid container gap={1}>
         <Grid item flexGrow={1}>
-          <Button variant="contained" fullWidth>
+          <Button variant="contained" fullWidth color="error">
             BUY
           </Button>
         </Grid>
 
         <Grid item flexGrow={1}>
-          <Button variant="contained" fullWidth>
+          <Button variant="contained" fullWidth color="error">
             SELL
           </Button>
         </Grid>

@@ -31,4 +31,7 @@ a {
 
   --button-bg: var(--red);
   --button-text: var(--color-white);
+
+  --text-muted: gray;
+  --card-border: gainsboro;
 }

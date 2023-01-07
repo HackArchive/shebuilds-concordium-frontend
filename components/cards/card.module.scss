@@ -5,7 +5,7 @@
   max-width: 200px;
 
   padding: 0.5rem;
-  border: solid gainsboro 1px;
+  border: solid var(--card-border) 1px;
   border-radius: 0.4rem;
 
   img {
@@ -17,7 +17,7 @@
 
   p {
     margin-bottom: 0.5rem;
-    color: black;
+    // color: black;
     font-size: 1rem;
   }
 
@@ -26,12 +26,11 @@
   }
 
   p:nth-of-type(2) {
-    color: gray;
+    color: var(--text-muted);
     font-size: 0.85rem;
 
     span {
       font-weight: bold;
-      color: black;
     }
 
     margin-bottom: 1rem;
