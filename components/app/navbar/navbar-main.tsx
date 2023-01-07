@@ -18,10 +18,8 @@ import {
 import MenuIcon from "@mui/icons-material/Menu";
 import classes from "./navbar.module.scss";
 import Link from "next/link";
-import Image from "next/image";
 import { useRouter } from "next/router";
 import RoundedButton from "../button/rounded-button";
-import { useAppSelector } from "../../../hooks";
 import useWallet from "../../../context/wallet-context/use-wallet";
 import { connectToWallet } from "../../../helpers/wallet-helper";
 
@@ -130,6 +128,7 @@ const NavBarHome: React.FC<NavBarHomeProps> = (props) => {
             paddingTop: "1rem",
             paddingBottom: "1rem",
             boxShadow: "none",
+            backgroundColor: "var(--black)",
           }}
           position="sticky"
         >

@@ -1,10 +1,13 @@
 .roundedButton {
-  background-color: var(--yellow);
+  background-color: var(--red);
+  color: var(--white);
+
   border: 0;
-  font-size: 1rem;
-  padding: 0.6rem 1.5rem;
   border-radius: 1.5rem;
+
+  font-size: 1rem;
   font-weight: bolder;
+  padding: 0.6rem 1.5rem;
 
   cursor: pointer;
 
