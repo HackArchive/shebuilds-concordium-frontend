@@ -9,25 +9,19 @@ import { useAppDispatch, useAppSelector } from "../hooks";
 import { walletActions } from "../store/wallet-store";
 import NavBarHome from "../components/app/navbar/navbar-main";
 import ItemCard from "../components/cards/item-card";
+import useWallet from "../context/wallet-context/use-wallet";
 
 export default function Home() {
-  const dispatch = useAppDispatch();
-  const walletState = useAppSelector((state) => state.wallet);
+  const walletState = useWallet();
 
-  const onConnectClick: React.MouseEventHandler<HTMLButtonElement> = async (
-    event
-  ) => {
+  const onConnectClick = async () => {
     try {
       const provider = await detectConcordiumProvider();
       const accountAddr = await provider.connect();
-
-      console.log(accountAddr);
-
-      dispatch(walletActions.setAccount(accountAddr));
-
-      console.log(walletState.account);
-
-      // walletActions.setWalletState({ provider, account: accountAddr })
+      walletState?.setState({
+        account: accountAddr,
+        provider: provider,
+      });
     } catch (err) {
       console.error(`Error connecting to wallet: ${err}`);
     }
@@ -54,7 +48,7 @@ export default function Home() {
 
         <button onClick={onConnectClick}>Connect</button>
 
-        <p>Account Address: {walletState.account}</p>
+        <p>Account Address: {walletState.state.account}</p>
 
         <Grid container gap={3} justifyContent="center">
           {items.map((item, i) => {

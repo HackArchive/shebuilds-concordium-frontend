@@ -1,14 +1,10 @@
-import type { WalletApi } from "@concordium/browser-wallet-api-helpers";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { stat } from "fs";
 
-export interface WalletState {
-  // provider?: WalletApi;
+interface WalletState {
   account?: string;
 }
 
 const initialState: WalletState = {
-  // provider: undefined,
   account: undefined,
 };
 

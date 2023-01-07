@@ -1,6 +1,6 @@
 import { createContext } from "react";
-import { initialWalletState, WalletState } from "./state";
+import { initialWalletState, WalletContextState } from "./state";
 
-const WalletContext = createContext<WalletState>(initialWalletState);
+const WalletContext = createContext<WalletContextState>(initialWalletState);
 
 export default WalletContext;

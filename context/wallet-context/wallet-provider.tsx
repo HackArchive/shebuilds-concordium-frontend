@@ -15,9 +15,8 @@ const WalletProvider: React.FC<WalletProviderProps> = ({ children }) => {
   return (
     <WalletContext.Provider
       value={{
-        account: state.account,
-        provider: state.provider,
-        setState: setState,
+        state,
+        setState,
       }}
     >
       {children}

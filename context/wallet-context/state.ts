@@ -4,11 +4,17 @@ import { Dispatch, SetStateAction } from "react";
 export interface WalletState {
   provider?: WalletApi;
   account?: string;
-  setState?: Dispatch<SetStateAction<WalletState>>;
 }
 
-export const initialWalletState: WalletState = {
-  provider: undefined,
-  account: undefined,
-  setState: undefined,
+export interface WalletContextState {
+  state: WalletState;
+  setState: Dispatch<SetStateAction<WalletState>>;
+}
+
+export const initialWalletState: WalletContextState = {
+  state: {
+    provider: undefined,
+    account: undefined,
+  },
+  setState: () => {},
 };
