@@ -1,16 +1,8 @@
 import Head from "next/head";
-import Image from "next/image";
-import { Inter } from "@next/font/google";
-import { Button, Container, Grid } from "@mui/material";
-import { detectConcordiumProvider } from "@concordium/browser-wallet-api-helpers";
-import type { WalletApi } from "@concordium/browser-wallet-api-helpers";
-import { useState } from "react";
-import { useAppDispatch, useAppSelector } from "../hooks";
-import { walletActions } from "../store/wallet-store";
+import { Container, Grid } from "@mui/material";
 import NavBarHome from "../components/app/navbar/navbar-main";
 import ItemCard from "../components/cards/item-card";
 import useWallet from "../context/wallet-context/use-wallet";
-import { connectToWallet } from "../helpers/wallet-helper";
 
 export default function Home() {
   const walletState = useWallet();
