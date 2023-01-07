@@ -10,22 +10,10 @@ import { walletActions } from "../store/wallet-store";
 import NavBarHome from "../components/app/navbar/navbar-main";
 import ItemCard from "../components/cards/item-card";
 import useWallet from "../context/wallet-context/use-wallet";
+import { connectToWallet } from "../helpers/wallet-helper";
 
 export default function Home() {
   const walletState = useWallet();
-
-  const onConnectClick = async () => {
-    try {
-      const provider = await detectConcordiumProvider();
-      const accountAddr = await provider.connect();
-      walletState?.setState({
-        account: accountAddr,
-        provider: provider,
-      });
-    } catch (err) {
-      console.error(`Error connecting to wallet: ${err}`);
-    }
-  };
 
   const items = Array(5).fill({
     name: "Dark Elixer",
@@ -44,12 +32,6 @@ export default function Home() {
       <NavBarHome />
 
       <Container>
-        <h1>Team Concoders</h1>
-
-        <button onClick={onConnectClick}>Connect</button>
-
-        <p>Account Address: {walletState.state.account}</p>
-
         <Grid container gap={3} justifyContent="center">
           {items.map((item, i) => {
             return (

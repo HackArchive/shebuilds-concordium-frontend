@@ -22,6 +22,8 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import RoundedButton from "../button/rounded-button";
 import { useAppSelector } from "../../../hooks";
+import useWallet from "../../../context/wallet-context/use-wallet";
+import { connectToWallet } from "../../../helpers/wallet-helper";
 
 interface NavBarHomeProps {
   window?: () => Window;
@@ -79,7 +81,7 @@ const NavBarHome: React.FC<NavBarHomeProps> = (props) => {
   const router = useRouter();
   const [mobileOpen, setMobileOpen] = useState(false);
 
-  const walletState = useAppSelector((state) => state.wallet);
+  const wallet = useWallet();
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -107,7 +109,15 @@ const NavBarHome: React.FC<NavBarHomeProps> = (props) => {
     </Box>
   );
 
-  const connectToWallet = () => {};
+  const onConnectClick = async () => {
+    try {
+      const { account, provider } = await connectToWallet();
+
+      wallet?.setState({ account, provider });
+    } catch (err) {
+      console.error(`Error connecting to wallet: ${err}`);
+    }
+  };
 
   const container =
     window !== undefined ? () => window().document.body : undefined;
@@ -160,15 +170,15 @@ const NavBarHome: React.FC<NavBarHomeProps> = (props) => {
                   );
                 })}
 
-                {walletState.account !== undefined ? (
+                {wallet.state.account !== undefined ? (
                   <RoundedButton
                     onClick={() => {}}
-                    text={walletState.account.substring(0, 10) + "..."}
+                    text={wallet.state.account.substring(0, 10) + "..."}
                     className={classes.authButton}
                   />
                 ) : (
                   <RoundedButton
-                    onClick={() => {}}
+                    onClick={onConnectClick}
                     text="Connect"
                     className={classes.authButton}
                   />
