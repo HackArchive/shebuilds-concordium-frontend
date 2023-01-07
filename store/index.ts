@@ -1,14 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
-import walletSlice from "./wallet-store";
 
 const store = configureStore({
-  reducer: {
-    wallet: walletSlice.reducer,
-  },
-  // middleware: (getDefaultMiddleware) =>
-  //   getDefaultMiddleware({
-  //     serializableCheck: false,
-  //   }),
+  reducer: {},
 });
 
 export default store;
