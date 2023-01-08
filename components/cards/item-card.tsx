@@ -34,7 +34,7 @@ const ItemCard: React.FC<ItemCardProps> = ({
     <div className={classes.card}>
       <img src={img_url} alt="Item Image" />
 
-      <p>Dark Elixer</p>
+      <p>{name}</p>
 
       <p>
         Buy from <span>CCD {price}</span>

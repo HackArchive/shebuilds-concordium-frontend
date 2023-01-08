@@ -30,29 +30,29 @@ const CardsGroup: React.FC<CardsGroup> = ({}) => {
     },
     {
       name: "Charmander",
-      price: 100,
+      price: 200,
       img_url: "images/charmander.png",
       creator: "4KuyV4gYjp5vwsPm33NPPknxzUv8AG8uvGK1NLLfzjW8KtcAtQ",
       owners: ["4KuyV4gYjp5vwsPm33NPPknxzUv8AG8uvGK1NLLfzjW8KtcAtQ"],
     },
     {
       name: "Bulbasaur",
-      price: 100,
+      price: 180,
       img_url: "images/bulbasaur.png",
       creator: "4KuyV4gYjp5vwsPm33NPPknxzUv8AG8uvGK1NLLfzjW8KtcAtQ",
       owners: ["4KuyV4gYjp5vwsPm33NPPknxzUv8AG8uvGK1NLLfzjW8KtcAtQ"],
     },
     {
       name: "Butterfree",
-      price: 100,
+      price: 80,
       img_url: "images/butterfree.png",
       creator: "4KuyV4gYjp5vwsPm33NPPknxzUv8AG8uvGK1NLLfzjW8KtcAtQ",
       owners: ["4KuyV4gYjp5vwsPm33NPPknxzUv8AG8uvGK1NLLfzjW8KtcAtQ"],
     },
 
     {
-      name: "Bulbasaur",
-      price: 100,
+      name: "Pidgeotto",
+      price: 150,
       img_url: "images/pidgeotto.png",
       creator: "4KuyV4gYjp5vwsPm33NPPknxzUv8AG8uvGK1NLLfzjW8KtcAtQ",
       owners: ["4KuyV4gYjp5vwsPm33NPPknxzUv8AG8uvGK1NLLfzjW8KtcAtQ"],
@@ -60,7 +60,7 @@ const CardsGroup: React.FC<CardsGroup> = ({}) => {
 
     {
       name: "Squirtle",
-      price: 100,
+      price: 120,
       img_url: "images/squirtle.png",
       creator: "4KuyV4gYjp5vwsPm33NPPknxzUv8AG8uvGK1NLLfzjW8KtcAtQ",
       owners: ["4KuyV4gYjp5vwsPm33NPPknxzUv8AG8uvGK1NLLfzjW8KtcAtQ"],
