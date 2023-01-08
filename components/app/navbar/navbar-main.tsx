@@ -21,7 +21,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import RoundedButton from "../button/rounded-button";
 import useWallet from "../../../context/wallet-context/use-wallet";
-import { connectToWallet } from "../../../helpers/wallet-helper";
+import { addItem, connectToWallet } from "../../../helpers/wallet-helper";
 
 interface NavBarHomeProps {
   window?: () => Window;
@@ -192,6 +192,25 @@ const NavBarHome: React.FC<NavBarHomeProps> = (props) => {
                     className={classes.authButton}
                   />
                 )}
+
+                {/* <RoundedButton
+                  onClick={() => {
+                    addItem(wallet.state.provider!, wallet.state.account!);
+                  }}
+                  text="ADD ITEM"
+                  className={classes.authButton}
+                /> */}
+
+                {/* <Button
+                  variant="contained"
+                  fullWidth
+                  color="error"
+                  onClick={() => {
+                    addItem(wallet.state.provider!, wallet.state.account!);
+                  }}
+                >
+                  ADD ITEM
+                </Button> */}
               </Box>
             </Toolbar>
           </Container>
