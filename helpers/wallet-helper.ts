@@ -23,6 +23,9 @@ const MODULE_REF = new ModuleReference(
   "8beeb44b68c55f46bd577e5bdbb95f195e7b4ca2e550071dcbd7c822a8c8342b"
 );
 
+const BLOCK_HASH =
+  "9d9b29d823e06bd170d8c6945e3f41fa337e4dc19e55e1e9f3070a55ad822209";
+
 const CONTRACT_INDEX = BigInt(2438);
 const CONTRACT_SUBINDEX = BigInt(0);
 
@@ -173,10 +176,7 @@ export const contractInfo = async (provider: WalletApi, account: string) => {
   const client = provider.getJsonRpcClient();
 
   client
-    .getInstanceInfo(
-      CONTRACT_ADDRESS,
-      "9d9b29d823e06bd170d8c6945e3f41fa337e4dc19e55e1e9f3070a55ad822209"
-    )
+    .getInstanceInfo(CONTRACT_ADDRESS, BLOCK_HASH)
     .then((result) => {
       console.log(result);
     })
