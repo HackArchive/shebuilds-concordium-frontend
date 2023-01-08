@@ -1,6 +1,10 @@
 import { Button, Grid } from "@mui/material";
 import useWallet from "../../context/wallet-context/use-wallet";
-import { getAllItems, sendMoney } from "../../helpers/wallet-helper";
+import {
+  contractInfo,
+  getItemCount,
+  sendMoney,
+} from "../../helpers/wallet-helper";
 import classes from "./card.module.scss";
 
 interface ItemCardProps {
@@ -39,7 +43,8 @@ const ItemCard: React.FC<ItemCardProps> = ({
             fullWidth
             color="error"
             onClick={() => {
-              getAllItems(wallet.state.provider!, wallet.state.account!);
+              // getItemCount(wallet.state.provider!, wallet.state.account!);
+              // contractInfo(wallet.state.provider!, wallet.state.account!);
             }}
           >
             BUY

@@ -20,11 +20,16 @@ const SCHEMA =
   "//8DAQAAAAYAAABtYXJrZXQAAgAAAAgAAABhZGRfaXRlbQQUAAQAAAAEAAAAbmFtZRYCBQAAAHByaWNlBQwAAAB0b3RhbF9zdXBwbHkFCQAAAGltYWdlX3VybBYCFQEAAAAQAAAAUGFyc2VQYXJhbXNFcnJvcgIEAAAAdmlldwIQAgUQAhUCAAAABAAAAE5vbmUCBAAAAFNvbWUBAQAAABQABwAAAAQAAABuYW1lFgIFAAAAcHJpY2UFDAAAAHRvdGFsX3N1cHBseQUJAAAAaW1hZ2VfdXJsFgIEAAAAc29sZAUHAAAAY3JlYXRvchUCAAAABwAAAEFjY291bnQBAQAAAAsIAAAAQ29udHJhY3QBAQAAAAwGAAAAb3duZXJzEAIVAgAAAAcAAABBY2NvdW50AQEAAAALCAAAAENvbnRyYWN0AQEAAAAMAA==";
 
 const MODULE_REF = new ModuleReference(
-  "eef4a934ac3bd61faf061dce1e8f35d499171efa50286e0e94c968c5bd8c8b12"
+  "829b6edb6383ffe0510247979bef9523e45b84131b049d43e5ba2675d000e65d"
 );
 
-const CONTRACT_INDEX = BigInt(2431);
+const CONTRACT_INDEX = BigInt(2436);
 const CONTRACT_SUBINDEX = BigInt(0);
+
+const CONTRACT_ADDRESS = {
+  index: CONTRACT_INDEX,
+  subindex: CONTRACT_SUBINDEX,
+};
 
 const ZERO_AMOUNT = new CcdAmount(BigInt(0));
 
@@ -68,55 +73,55 @@ export const sendMoney = async (provider: WalletApi, account: string) => {
     .catch((err) => console.log(`Error: ${err}`));
 };
 
-export const getAllItems = async (provider: WalletApi, account: string) => {
+export const getItemCount = async (provider: WalletApi, account: string) => {
   const client = provider.getJsonRpcClient();
 
   client
     .invokeContract({
-      contract: {
-        index: CONTRACT_INDEX,
-        subindex: CONTRACT_SUBINDEX,
-      },
-      method: "market.view",
+      contract: CONTRACT_ADDRESS,
+      method: "market.get_item_count",
       invoker: new AccountAddress(account),
     })
     .then((result) => {
       if (result == undefined || result?.tag == "failure") {
+        console.log(result);
+
+        console.error(`Rejection Result: ${result?.reason.tag}`);
         throw new Error(result?.reason.tag ?? "Failed to invoke contract");
       }
 
       console.log(result.returnValue);
 
-      const deserializedValue = deserializeReceiveReturnValue(
-        // toBuffer(result.returnValue ?? "", "hex"),
-        // toBuffer(SCHEMA, "base64"),
+      // const deserializedValue = deserializeReceiveReturnValue(
+      //   // toBuffer(result.returnValue ?? "", "hex"),
+      //   // toBuffer(SCHEMA, "base64"),
 
-        Buffer.from(result.returnValue, "hex"),
-        Buffer.from(SCHEMA, "base64"),
-        "market",
-        "view",
-        SchemaVersion.V2
-      );
+      //   Buffer.from(result.returnValue, "hex"),
+      //   Buffer.from(SCHEMA, "base64"),
+      //   "market",
+      //   "view"
+      //   // SchemaVersion.V2
+      // );
 
-      console.log(deserializedValue);
+      // console.log(deserializedValue);
     })
-    .catch(console.log);
+    .catch((err) => {
+      console.error(err);
+    });
+};
 
-  provider
-    .sendTransaction(
-      account,
-      AccountTransactionType.Update,
-      {
-        amount: new CcdAmount(BigInt(1)),
-        maxContractExecutionEnergy: BigInt(3000),
-        initName: "market",
-        moduleRef: MODULE_REF,
-      },
-      {},
-      SCHEMA
+export const contractInfo = async (provider: WalletApi, account: string) => {
+  const client = provider.getJsonRpcClient();
+
+  client
+    .getInstanceInfo(
+      CONTRACT_ADDRESS,
+      "f31544254fc442afbe098896772c4f869e3ced67435f309eb2aac74364cbe43a"
     )
-    .then((val) => {
-      console.log(`Success: ${val}`);
+    .then((result) => {
+      console.log(result);
     })
-    .catch((err) => console.log(`Error: ${err}`));
+    .catch((err) => {
+      console.error(err);
+    });
 };
