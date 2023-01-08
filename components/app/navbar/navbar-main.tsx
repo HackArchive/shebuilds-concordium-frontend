@@ -72,6 +72,10 @@ const navLinks = [
     label: "Home",
     link: "/",
   },
+  {
+    label: "PokemonZilla",
+    link: "/game",
+  },
 ];
 
 const NavBarHome: React.FC<NavBarHomeProps> = (props) => {
