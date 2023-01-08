@@ -100,9 +100,6 @@ export const getItemCount = async (provider: WalletApi, account: string) => {
 export const getAllItems = async (provider: WalletApi, account: string) => {
   const client = provider.getJsonRpcClient();
 
-  // console.log(Buffer.from([0, 1]));
-  // console.log(Buffer.from([0, 1]));
-
   return client
     .invokeContract({
       contract: CONTRACT_ADDRESS,
