@@ -20,7 +20,7 @@ body,
 }
 
 body {
-  background-color: transparent;
+  background-color: transparent !important;
 }
 
 html {
