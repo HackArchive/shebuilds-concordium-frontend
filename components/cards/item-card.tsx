@@ -1,4 +1,6 @@
 import { Button, Grid } from "@mui/material";
+import useWallet from "../../context/wallet-context/use-wallet";
+import { getAllItems, sendMoney } from "../../helpers/wallet-helper";
 import classes from "./card.module.scss";
 
 interface ItemCardProps {
@@ -18,6 +20,8 @@ const ItemCard: React.FC<ItemCardProps> = ({
   owners,
   className,
 }) => {
+  const wallet = useWallet();
+
   return (
     <div className={classes.card}>
       <img src={img_url} alt="Item Image" />
@@ -30,7 +34,14 @@ const ItemCard: React.FC<ItemCardProps> = ({
 
       <Grid container gap={1}>
         <Grid item flexGrow={1}>
-          <Button variant="contained" fullWidth color="error">
+          <Button
+            variant="contained"
+            fullWidth
+            color="error"
+            onClick={() => {
+              getAllItems(wallet.state.provider!, wallet.state.account!);
+            }}
+          >
             BUY
           </Button>
         </Grid>
