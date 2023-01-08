@@ -11,19 +11,19 @@ import {
   AccountTransaction,
   buildBasicAccountSigner,
   ModuleReference,
-  deserializeReceiveReturnValue,
   SchemaVersion,
+  deserializeReceiveReturnValue,
 } from "@concordium/common-sdk";
 import { Buffer } from "buffer";
 
 const SCHEMA =
-  "//8DAQAAAAYAAABtYXJrZXQAAgAAAAgAAABhZGRfaXRlbQQUAAQAAAAEAAAAbmFtZRYCBQAAAHByaWNlBQwAAAB0b3RhbF9zdXBwbHkFCQAAAGltYWdlX3VybBYCFQEAAAAQAAAAUGFyc2VQYXJhbXNFcnJvcgIEAAAAdmlldwIQAgUQAhUCAAAABAAAAE5vbmUCBAAAAFNvbWUBAQAAABQABwAAAAQAAABuYW1lFgIFAAAAcHJpY2UFDAAAAHRvdGFsX3N1cHBseQUJAAAAaW1hZ2VfdXJsFgIEAAAAc29sZAUHAAAAY3JlYXRvchUCAAAABwAAAEFjY291bnQBAQAAAAsIAAAAQ29udHJhY3QBAQAAAAwGAAAAb3duZXJzEAIVAgAAAAcAAABBY2NvdW50AQEAAAALCAAAAENvbnRyYWN0AQEAAAAMAA==";
+  "//8DAQAAAAYAAABtYXJrZXQABgAAAAgAAABhZGRfaXRlbQYUAAQAAAAEAAAAbmFtZRYCBQAAAHByaWNlCgwAAAB0b3RhbF9zdXBwbHkFCQAAAGltYWdlX3VybBYCBRUGAAAAEAAAAFBhcnNlUGFyYW1zRXJyb3ICDwAAAE5hbWVMZW5ndGhFcnJvcgIQAAAAVG90YWxTdXBwbHlFcnJvcgINAAAASW1hZ2VVcmxFcnJvcgIRAAAASXRlbU5vdEZvdW5kRXJyb3ICEQAAAEl0ZW1Ob3RPd25lZEVycm9yAggAAABidXlfaXRlbQYQAgUQAg8FARUGAAAAEAAAAFBhcnNlUGFyYW1zRXJyb3ICDwAAAE5hbWVMZW5ndGhFcnJvcgIQAAAAVG90YWxTdXBwbHlFcnJvcgINAAAASW1hZ2VVcmxFcnJvcgIRAAAASXRlbU5vdEZvdW5kRXJyb3ICEQAAAEl0ZW1Ob3RPd25lZEVycm9yAg0AAABnZXRfYWxsX2l0ZW1zARACDwUUAAcAAAAEAAAAbmFtZRYCBQAAAHByaWNlCgwAAAB0b3RhbF9zdXBwbHkFCQAAAGltYWdlX3VybBYCBAAAAHNvbGQFBwAAAGNyZWF0b3IVAgAAAAcAAABBY2NvdW50AQEAAAALCAAAAENvbnRyYWN0AQEAAAAMBgAAAG93bmVycxACFQIAAAAHAAAAQWNjb3VudAEBAAAACwgAAABDb250cmFjdAEBAAAADA4AAABnZXRfaXRlbV9jb3VudAEFDwAAAGdldF9zaW5nbGVfaXRlbQIFFAAHAAAABAAAAG5hbWUWAgUAAABwcmljZQoMAAAAdG90YWxfc3VwcGx5BQkAAABpbWFnZV91cmwWAgQAAABzb2xkBQcAAABjcmVhdG9yFQIAAAAHAAAAQWNjb3VudAEBAAAACwgAAABDb250cmFjdAEBAAAADAYAAABvd25lcnMQAhUCAAAABwAAAEFjY291bnQBAQAAAAsIAAAAQ29udHJhY3QBAQAAAAwNAAAAdHJhbnNmZXJfaXRlbQYPBRUCAAAABwAAAEFjY291bnQBAQAAAAsIAAAAQ29udHJhY3QBAQAAAAwBFQYAAAAQAAAAUGFyc2VQYXJhbXNFcnJvcgIPAAAATmFtZUxlbmd0aEVycm9yAhAAAABUb3RhbFN1cHBseUVycm9yAg0AAABJbWFnZVVybEVycm9yAhEAAABJdGVtTm90Rm91bmRFcnJvcgIRAAAASXRlbU5vdE93bmVkRXJyb3ICAA==";
 
 const MODULE_REF = new ModuleReference(
-  "829b6edb6383ffe0510247979bef9523e45b84131b049d43e5ba2675d000e65d"
+  "8beeb44b68c55f46bd577e5bdbb95f195e7b4ca2e550071dcbd7c822a8c8342b"
 );
 
-const CONTRACT_INDEX = BigInt(2436);
+const CONTRACT_INDEX = BigInt(2438);
 const CONTRACT_SUBINDEX = BigInt(0);
 
 const CONTRACT_ADDRESS = {
@@ -91,19 +91,81 @@ export const getItemCount = async (provider: WalletApi, account: string) => {
       }
 
       console.log(result.returnValue);
+    })
+    .catch((err) => {
+      console.error(err);
+    });
+};
 
-      // const deserializedValue = deserializeReceiveReturnValue(
-      //   // toBuffer(result.returnValue ?? "", "hex"),
-      //   // toBuffer(SCHEMA, "base64"),
+export const getAllItems = async (provider: WalletApi, account: string) => {
+  const client = provider.getJsonRpcClient();
 
-      //   Buffer.from(result.returnValue, "hex"),
+  // console.log(Buffer.from([0, 1]));
+  // console.log(Buffer.from([0, 1]));
+
+  return client
+    .invokeContract({
+      contract: CONTRACT_ADDRESS,
+      method: "market.get_all_items",
+      invoker: new AccountAddress(account),
+    })
+    .then((result) => {
+      if (result == undefined || result?.tag == "failure") {
+        console.log(result);
+
+        console.error(`Rejection Result: ${result?.reason.tag}`);
+        throw new Error(result?.reason.tag ?? "Failed to invoke contract");
+      }
+
+      console.log(result.returnValue);
+
+      const data = {
+        result: result.returnValue ?? "",
+        schema: SCHEMA,
+      };
+
+      return data;
+
+      // const dRes = deserializeReceiveReturnValue(
+      //   Buffer.from(result.returnValue!, "hex"),
       //   Buffer.from(SCHEMA, "base64"),
       //   "market",
-      //   "view"
+      //   "get_all_items"
       //   // SchemaVersion.V2
       // );
 
-      // console.log(deserializedValue);
+      // console.log(dRes);
+    })
+    .catch((err) => {
+      console.error(err);
+
+      return undefined;
+    });
+};
+
+export const addItem = async (provider: WalletApi, account: string) => {
+  const client = provider.getJsonRpcClient();
+
+  provider
+    .sendTransaction(
+      account,
+      AccountTransactionType.Update,
+      {
+        amount: ZERO_AMOUNT,
+        address: CONTRACT_ADDRESS,
+        receiveName: "market.add_item",
+        maxContractExecutionEnergy: BigInt(3000),
+      },
+      {
+        name: "Dark Elixer",
+        price: 100,
+        total_supply: 100,
+        image_url: "https://wallpapercave.com/wp/wp2424020.jpg",
+      },
+      SCHEMA
+    )
+    .then((txHash) => {
+      console.log(txHash);
     })
     .catch((err) => {
       console.error(err);
@@ -116,7 +178,7 @@ export const contractInfo = async (provider: WalletApi, account: string) => {
   client
     .getInstanceInfo(
       CONTRACT_ADDRESS,
-      "f31544254fc442afbe098896772c4f869e3ced67435f309eb2aac74364cbe43a"
+      "9d9b29d823e06bd170d8c6945e3f41fa337e4dc19e55e1e9f3070a55ad822209"
     )
     .then((result) => {
       console.log(result);
