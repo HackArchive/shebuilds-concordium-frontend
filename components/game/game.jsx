@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 // import "./App.css";
 import classes from "./card.module.scss";
 import Card from "./Card";
+import NavBarHome from "../app/navbar/navbar-main";
 
 const initialCards = [
   { src: "/images/bulbasaur.png", matched: false },
@@ -80,27 +81,30 @@ function GameComp() {
   }, [choiceOne, choiceTwo]);
 
   return (
-    <div className={classes.container}>
-      <button onClick={shuffleCards}>New Game</button>
-      <div className={classes.grid}>
-        {cards.map((card) => (
-          <Card
-            key={card.id}
-            card={card}
-            handleChoice={handleChoice}
-            flipped={
-              card === choiceOne ||
-              card === choiceTwo ||
-              card.matched ||
-              startFlip
-            }
-            disabled={disabled}
-            matched={card.matched}
-          />
-        ))}
+    <>
+      <NavBarHome />
+      <div className={classes.container}>
+        <button onClick={shuffleCards}>New Game</button>
+        <div className={classes.grid}>
+          {cards.map((card) => (
+            <Card
+              key={card.id}
+              card={card}
+              handleChoice={handleChoice}
+              flipped={
+                card === choiceOne ||
+                card === choiceTwo ||
+                card.matched ||
+                startFlip
+              }
+              disabled={disabled}
+              matched={card.matched}
+            />
+          ))}
+        </div>
+        <p>Turns: {turn}</p>
       </div>
-      <p>Turns: {turn}</p>
-    </div>
+    </>
   );
 }
 
