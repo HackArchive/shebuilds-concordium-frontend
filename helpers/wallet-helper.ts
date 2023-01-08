@@ -172,6 +172,35 @@ export const addItem = async (provider: WalletApi, account: string) => {
     });
 };
 
+export const buyItem = async (provider: WalletApi, account: string) => {
+  const client = provider.getJsonRpcClient();
+
+  provider
+    .sendTransaction(
+      account,
+      AccountTransactionType.Update,
+      {
+        amount: ZERO_AMOUNT,
+        address: CONTRACT_ADDRESS,
+        receiveName: "market.add_item",
+        maxContractExecutionEnergy: BigInt(3000),
+      },
+      {
+        name: "Dark Elixer",
+        price: 100,
+        total_supply: 100,
+        image_url: "https://wallpapercave.com/wp/wp2424020.jpg",
+      },
+      SCHEMA
+    )
+    .then((txHash) => {
+      console.log(txHash);
+    })
+    .catch((err) => {
+      console.error(err);
+    });
+};
+
 export const contractInfo = async (provider: WalletApi, account: string) => {
   const client = provider.getJsonRpcClient();
 
