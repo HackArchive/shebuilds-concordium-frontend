@@ -14,13 +14,13 @@ const CardsGroup: React.FC<CardsGroup> = ({}) => {
   // });
 
   const items = [
-    {
-      name: "Dark Elixer",
-      price: 100,
-      img_url: "https://wallpapercave.com/wp/wp2424020.jpg",
-      creator: "4KuyV4gYjp5vwsPm33NPPknxzUv8AG8uvGK1NLLfzjW8KtcAtQ",
-      owners: ["4KuyV4gYjp5vwsPm33NPPknxzUv8AG8uvGK1NLLfzjW8KtcAtQ"],
-    },
+    // {
+    //   name: "Dark Elixer",
+    //   price: 100,
+    //   img_url: "https://wallpapercave.com/wp/wp2424020.jpg",
+    //   creator: "4KuyV4gYjp5vwsPm33NPPknxzUv8AG8uvGK1NLLfzjW8KtcAtQ",
+    //   owners: ["4KuyV4gYjp5vwsPm33NPPknxzUv8AG8uvGK1NLLfzjW8KtcAtQ"],
+    // },
     {
       name: "Pikachu",
       price: 250,
