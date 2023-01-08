@@ -30,6 +30,12 @@ export default function Home() {
 
       <Container>
         <CardsGroup />
+
+        <div
+          style={{
+            height: "5rem",
+          }}
+        ></div>
       </Container>
     </>
   );
